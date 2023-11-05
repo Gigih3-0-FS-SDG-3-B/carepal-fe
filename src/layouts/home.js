@@ -1,24 +1,16 @@
 import React from "react";
-import UserProfileCard from "../components/caregiverCard";
+import HomeCarousel from "../components/carousel";
 import { Container, Row, Col } from "react-bootstrap";
 
 function HomePage() {
+
   return (
     <div>
       <h1>Home Page</h1>
-      <Container fluid>
+      <Container className="m-0 p-0">
         <Row>
-          <Col>
-            <UserProfileCard />
-          </Col>
-          <Col>
-            <UserProfileCard />
-          </Col>
-          <Col>
-            <UserProfileCard />
-          </Col>
-          <Col>
-            <UserProfileCard />
+          <Col sm={8}>
+          <HomeCarousel />
           </Col>
         </Row>
       </Container>
