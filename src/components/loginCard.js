@@ -3,8 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import { Input, FormControl, FormLabel } from "@chakra-ui/react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/authContext";
 
 function LoginCard() {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,7 +32,7 @@ function LoginCard() {
         // Authentication successful, obtain the JWT token
         // const token = response.data.token;
         const token = "dummy_token"
-        localStorage.setItem("token", token);
+        login(token);
         navigate("/");
       } else {
         setError("Invalid email or password. Please try again.");
