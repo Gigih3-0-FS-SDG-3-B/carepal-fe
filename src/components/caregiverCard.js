@@ -67,8 +67,8 @@ const UserProfileCard = ({
             </Card.Text>
           </div>
         </div>
-        <div className="w-25 ms-auto">
-          <Button onClick={onBookClick} variant="danger">
+        <div className="w-25 flex me-auto">
+          <Button onClick={onBookClick} variant="danger" className="ms-auto">
             Book
           </Button>
         </div>
