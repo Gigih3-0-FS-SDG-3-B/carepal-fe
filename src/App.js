@@ -10,6 +10,7 @@ import NotFound from "./layouts/notFound";
 import LoginPage from "./layouts/login";
 import ProtectedRoutes from "./auth/protectedRoute";
 import { AuthProvider } from "./auth/authContext";
+import CaregiverProfilePage from "./layouts/caregiverProfile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/caregivers" element={<CaregiverPage />} />
+            <Route path="/caregivers/profile" element={<CaregiverProfilePage />} />
             <Route element={<ProtectedRoutes />}>
               <Route path="/book" element={<h1>Booking Page</h1>} />
             </Route>
