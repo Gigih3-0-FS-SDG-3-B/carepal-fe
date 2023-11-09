@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   Flex,
   Box,
@@ -12,28 +13,45 @@ import { Carousel } from "react-bootstrap";
 import BookingModal from "../components/bookingModal";
 import StarRatings from "react-star-ratings";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import * as userService from "../services/userService";
 
-const CaregiverProfilePage = ({ caregiver }) => {
+const CaregiverProfilePage = () => {
+  const { userId } = useParams();
+  const [caregiverData, setCaregiverData] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  caregiver = {
-    name: "Felix",
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await userService.fetchCaregiverData(userId);
+        setCaregiverData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [userId]);
+
+
+  const caregiver = {
+    first_name: "Felix",
+    last_name: "Ivander",
     description: "I am a very experienced caregiver.",
     experience: 10,
-    profileImage: "https://via.placeholder.com/250",
-    rating: 4.5,
+    profile_picture_url: "https://via.placeholder.com/250",
+    review_rating: 4.5,
     reviews: [
       {
-        userName: "User 1",
-        content: "Very good caregiver.",
-        rating: 4,
-        userImage: "https://via.placeholder.com/50",
+        first_name: "User 1",
+        review: "Very good caregiver.",
+        review_rating: 4,
+        profile_picture_url: "https://via.placeholder.com/50",
       },
       {
-        userName: "User 2",
-        content: "Very bad caregiver.",
-        rating: 1,
-        userImage: "https://via.placeholder.com/50",
+        first_name: "User 2",
+        review: "Very bad caregiver.",
+        review_rating: 1,
+        profile_picture_url: "https://via.placeholder.com/50",
       },
     ],
   };
@@ -45,16 +63,14 @@ const CaregiverProfilePage = ({ caregiver }) => {
           <Image
             borderRadius="full"
             boxSize="250px"
-            src={caregiver.profileImage}
+            src={caregiver.profile_picture_url}
             alt="Caregiver"
             className="mr-4"
           />
           <Box>
-            <Heading as="h1">
-              {caregiver.name}
-            </Heading>
+            <Heading as="h1">{caregiver.first_name} {caregiver.last_name}</Heading>
             <StarRatings
-              rating={caregiver.rating}
+              rating={caregiver.review_rating}
               starRatedColor="gold"
               numberOfStars={5}
               name="rating"
@@ -63,7 +79,7 @@ const CaregiverProfilePage = ({ caregiver }) => {
             />
           </Box>
         </Flex>
-        <Heading as='h3' className="text-blue-500 font-bold">
+        <Heading as="h3" className="text-blue-500 font-bold">
           About Me
         </Heading>
         <hr />
@@ -73,7 +89,7 @@ const CaregiverProfilePage = ({ caregiver }) => {
         <Text fontSize="md" className="text-gray-500 mb-4">
           {caregiver.experience} years of experience
         </Text>
-        <Heading as='h3' className="text-blue-500 font-bold">
+        <Heading as="h3" className="text-blue-500 font-bold">
           Reviews
         </Heading>
         <hr />
@@ -105,12 +121,12 @@ const CaregiverProfilePage = ({ caregiver }) => {
                 <Image
                   borderRadius="full"
                   boxSize="50px"
-                  src={review.userImage}
-                  alt={review.userName}
+                  src={review.profile_picture_url}
+                  alt={review.first_name}
                   className="mb-2"
                 />
                 <StarRatings
-                  rating={review.rating}
+                  rating={review.review_rating}
                   starRatedColor="gold"
                   numberOfStars={5}
                   name="rating"
@@ -118,8 +134,8 @@ const CaregiverProfilePage = ({ caregiver }) => {
                   starSpacing="2px"
                   className="mb-2"
                 />
-                <Text className="text-sm">{review.content}</Text>
-                <Text className="text-sm font-bold">{review.userName}</Text>
+                <Text className="text-sm">{review.review}</Text>
+                <Text className="text-sm font-bold">{review.first_name}</Text>
               </Flex>
             </Carousel.Item>
           ))}

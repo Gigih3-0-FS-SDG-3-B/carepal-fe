@@ -21,10 +21,12 @@ function App() {
             <NavBar />
           </header>
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/caregivers" element={<CaregiverPage />} />
-            <Route path="/caregivers/profile" element={<CaregiverProfilePage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="home" element={<HomePage />} />
+            <Route path="caregivers" element={<CaregiverPage />} />
+            <Route path="caregivers">
+              <Route path=":userId" element={<CaregiverProfilePage />} />
+            </Route>
             <Route element={<ProtectedRoutes />}>
               <Route path="/book" element={<h1>Booking Page</h1>} />
             </Route>
