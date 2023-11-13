@@ -20,13 +20,13 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="home" className="text-yellow-500 font-bold	">
+            <Nav.Link href="/home" className="text-yellow-500 font-bold	">
               Home
             </Nav.Link>
-            <Nav.Link href="caregivers" className="text-yellow-500 font-bold	">
+            <Nav.Link href="/caregivers" className="text-yellow-500 font-bold	">
               Caregivers
             </Nav.Link>
-            <Nav.Link href="book" className="text-yellow-500 font-bold	">
+            <Nav.Link href="/book" className="text-yellow-500 font-bold	">
               Book Now!
             </Nav.Link>
           </Nav>
@@ -34,11 +34,11 @@ function NavBar() {
             {isLoggedIn ? (
               <Nav.Link onClick={handleLogout} className="text-yellow-500 font-bold" href="home">Logout</Nav.Link>
             ) : (
-              <Nav.Link href="login" className="text-yellow-500 font-bold">
+              <Nav.Link href="/login" className="text-yellow-500 font-bold">
                 Login
               </Nav.Link>
             )}
-            <Nav.Link href="user-profile" className="text-yellow-500 font-bold">
+            <Nav.Link href="/user-profile" className="text-yellow-500 font-bold">
               <i className="bi bi-person"></i>
             </Nav.Link>
           </Nav>
