@@ -15,3 +15,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.carousel {
+  height: 50vh;
+  width: 120vh;
+  margin-top: 20px;
+  margin-left: 200px;
+
+}
+.carousel-item {
+  height: 50vh;
+  width: 120vh;
+}
+.carousel-image {
+  height: 50vh;
+  width: 120vh;
+  object-fit:cover;
+}
+
+
+
