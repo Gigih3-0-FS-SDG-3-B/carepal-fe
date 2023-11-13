@@ -8,7 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("token"))
   );
-  const login = (token) => {
+  const login = ({ userId, token }) => {
+    localStorage.setItem("user_id", userId);
     localStorage.setItem("token", token);
     setIsLoggedIn(true);
   };
