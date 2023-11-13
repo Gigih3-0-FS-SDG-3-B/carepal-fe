@@ -17,18 +17,18 @@ code {
 }
 
 .carousel {
-  height: 50vh;
+  height: 60vh;
   width: 120vh;
   margin-top: 20px;
   margin-left: 200px;
 
 }
 .carousel-item {
-  height: 50vh;
+  height: 60vh;
   width: 120vh;
 }
 .carousel-image {
-  height: 50vh;
+  height: 60vh;
   width: 120vh;
   object-fit:cover;
 }
