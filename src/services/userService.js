@@ -1,10 +1,8 @@
-import axios from "axios";
+import api from './api';
 
 export async function fetchCaregiverData(caregiverId) {
-  const url = `http://localhost:5000/api/caregiver/${caregiverId}`;
-
   try {
-    const response = await axios.get(url);
+    const response = await api.get(`/caregiver/${caregiverId}`);
     return response.data;
   } catch (error) {
     console.log(error);

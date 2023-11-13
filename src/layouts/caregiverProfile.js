@@ -12,7 +12,6 @@ import {
 import { Carousel } from "react-bootstrap";
 import BookingModal from "../components/bookingModal";
 import StarRatings from "react-star-ratings";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import * as userService from "../services/userService";
 
 const CaregiverProfilePage = () => {
@@ -31,7 +30,6 @@ const CaregiverProfilePage = () => {
     }
     fetchData();
   }, [userId]);
-
 
   const caregiver = {
     first_name: "Felix",
