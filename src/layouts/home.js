@@ -1,6 +1,6 @@
 import React from "react";
 import HomeCarousel from "../components/carousel";
-import DateRangePicker from "../components/dateRangePicker";  // Adjust the import path accordingly
+import DateRangePicker from "../components/dateRangePicker";  
 import { Container, Row, Col } from "react-bootstrap";
 
 function HomePage() {
