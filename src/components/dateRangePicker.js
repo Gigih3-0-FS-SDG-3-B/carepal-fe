@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import Container from "react-bootstrap/Container";
 
-function DateRangePicker() {
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
-
+function DateRangePicker({startDate, endDate, handleDateChange, onCalendarClose}) {
   return (
     <Container className="w-1/4 m-0 mt-2">
       <div className="mb-2 text-xl font-bold">
@@ -18,9 +15,8 @@ function DateRangePicker() {
             selectsRange={true}
             startDate={startDate}
             endDate={endDate}
-            onChange={(update) => {
-              setDateRange(update);
-            }}
+            onChange={handleDateChange}
+            onCalendarClose={onCalendarClose}
             isClearable={true}
             minDate={new Date()}
             placeholderText="Start Date - End Date"
