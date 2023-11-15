@@ -1,6 +1,5 @@
 import React from "react";
 import HomeCarousel from "../components/carousel";
-import DateRangePicker from "../components/dateRangePicker";  
 import { Container, Row, Col } from "react-bootstrap";
 
 function HomePage() {
@@ -9,9 +8,7 @@ function HomePage() {
       <Container className="m-30 p-0">
         <Row>
           <Col sm={12}>
-           <DateRangePicker />
             <HomeCarousel />
-            
           </Col>
         </Row>
       </Container>
@@ -20,4 +17,3 @@ function HomePage() {
 }
 
 export default HomePage;
-

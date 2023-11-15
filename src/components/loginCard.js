@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Input, FormControl, FormLabel } from "@chakra-ui/react";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/authContext";
+import * as loginService from "../services/loginService";
 
 function LoginCard() {
   const { login } = useAuth();
@@ -23,16 +23,9 @@ function LoginCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // TODO: Replace with actual login logic after API Documentation is given. 
-      //   const response = await axios.post("/api/login", formData);
-      console.log(formData);
-
-      // if (response.status === 200) {
-      if (true) {
-        // Authentication successful, obtain the JWT token
-        // const token = response.data.token;
-        const token = "dummy_token"
-        login(token);
+      const { userId, token } = await loginService.getToken(formData);
+      if (token !== null) {
+        login({ userId, token });
         navigate("/");
       } else {
         setError("Invalid email or password. Please try again.");

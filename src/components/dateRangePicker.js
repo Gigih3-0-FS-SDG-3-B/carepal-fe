@@ -1,38 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import Container from "react-bootstrap/Container";
-import axios from "axios"; 
 
-function DateRangePicker() {
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
-  const [caregivers, setCaregivers] = useState([]);
-
-  const fetchCaregivers = async () => {
-    try {
-      console.log("Fetching caregivers for dates:", startDate, endDate);
-      const response = await axios.get('/api/caregivers', {
-        params: {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-        },
-      });
-
-      console.log("Caregivers:", response.data);
-      setCaregivers(response.data);
-    } catch (error) {
-      console.error("Error fetching caregivers:", error);
-    }
-  };
-
-  const handleDateChange = (update) => {
-    setDateRange(update);
-    if (update[0] && update[1]) {
-      
-      fetchCaregivers();
-    }
-  };
-
+function DateRangePicker({startDate, endDate, handleDateChange, onCalendarClose}) {
   return (
     <Container className="w-1/4 m-0 mt-2">
       <div className="mb-2 text-xl font-bold">
@@ -46,6 +16,7 @@ function DateRangePicker() {
             startDate={startDate}
             endDate={endDate}
             onChange={handleDateChange}
+            onCalendarClose={onCalendarClose}
             isClearable={true}
             minDate={new Date()}
             placeholderText="Start Date - End Date"
@@ -73,18 +44,6 @@ function DateRangePicker() {
           </div>
         </div>
       </div>
-
-      {/* Display the fetched caregivers */}
-      {caregivers.length > 0 && (
-        <div>
-          <h2>Available Caregivers:</h2>
-          <ul>
-            {caregivers.map((caregiver) => (
-              <li key={caregiver.id}>{caregiver.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
     </Container>
   );
 }
