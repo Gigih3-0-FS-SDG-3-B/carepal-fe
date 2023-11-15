@@ -11,6 +11,10 @@ import LoginPage from "./layouts/login";
 import ProtectedRoutes from "./auth/protectedRoute";
 import { AuthProvider } from "./auth/authContext";
 import CaregiverProfilePage from "./layouts/caregiverProfile";
+import DetailedOrderPage from "./layouts/DetailedOrderPage";  // Import DetailedOrderPage
+import CurrentOrderPage from "./layouts/CurentOrder";
+import UserProfilePage from './layouts/UserPage';
+
 
 function App() {
   return (
@@ -23,7 +27,10 @@ function App() {
           <Routes>
             <Route path="login" element={<LoginPage />} />
             <Route path="home" element={<HomePage />} />
+            <Route path="user" element={<UserProfilePage />} />
             <Route path="caregivers" element={<CaregiverPage />} />
+            <Route path="orders" element={<DetailedOrderPage />} />  {/* Include DetailedOrderPage */}
+            <Route path="curent" element={<CurrentOrderPage />} />
             <Route path="caregivers">
               <Route path=":userId" element={<CaregiverProfilePage />} />
             </Route>
