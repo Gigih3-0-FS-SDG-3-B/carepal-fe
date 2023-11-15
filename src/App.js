@@ -25,7 +25,7 @@ function App() {
             <Route path="home" element={<HomePage />} />
             <Route path="caregivers" element={<CaregiverPage />} />
             <Route path="caregivers">
-              <Route path=":userId" element={<CaregiverProfilePage />} />
+              <Route path=":caregiverId" element={<CaregiverProfilePage />} />
             </Route>
             <Route element={<ProtectedRoutes />}>
               <Route path="/book" element={<h1>Booking Page</h1>} />

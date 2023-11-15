@@ -4,8 +4,8 @@ export const fetchCaregivers = async (startDate, endDate) => {
     try {
       const response = await api.get('/caregiver/search', {
         params: {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
+          start_date: startDate,
+          end_date: endDate,
         },
       });
       return response.data;
