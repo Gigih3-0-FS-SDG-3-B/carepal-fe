@@ -11,6 +11,7 @@ import LoginPage from "./layouts/login";
 import ProtectedRoutes from "./auth/protectedRoute";
 import { AuthProvider } from "./auth/authContext";
 import CaregiverProfilePage from "./layouts/caregiverProfile";
+import OrderListPage from "./layouts/orderList";
 
 function App() {
   return (
@@ -23,12 +24,12 @@ function App() {
           <Routes>
             <Route path="login" element={<LoginPage />} />
             <Route path="home" element={<HomePage />} />
-            <Route path="caregivers" element={<CaregiverPage />} />
-            <Route path="caregivers">
-              <Route path=":caregiverId" element={<CaregiverProfilePage />} />
-            </Route>
             <Route element={<ProtectedRoutes />}>
-              <Route path="/book" element={<h1>Booking Page</h1>} />
+              <Route path="caregivers" element={<CaregiverPage />} />
+              <Route path="caregivers">
+                <Route path=":caregiverId" element={<CaregiverProfilePage />} />
+              </Route>
+              <Route path="/orders" element={<OrderListPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

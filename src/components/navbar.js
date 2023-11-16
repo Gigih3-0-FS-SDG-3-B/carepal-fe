@@ -1,7 +1,17 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import {
+  Box,
+  Flex,
+  Spacer,
+  Link,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Image,
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { useAuth } from "../auth/authContext";
 
 function NavBar() {
@@ -12,55 +22,45 @@ function NavBar() {
   };
 
   return (
-    <Navbar expand="lg" className="bg-blue-500">
-      <Container className="max-w-full">
-        <Navbar.Brand href="home" className="text-yellow-500 font-extrabold">
-          <img
-            src="/logo.png"
-            alt="CarePal Logo"
-            className="logo-image object-contain max-h-10 max-w-full"
-          />
-        </Navbar.Brand>
-        <Navbar.Brand href="home" className="text-yellow-500 font-extrabold">
+    <Box as="header" bg="gray.800" p="4">
+      <Flex align="center">
+        <Image src="/logo-transparent.png" alt="CarePal Logo" boxSize="10" mr="2" />
+        <Link href="/home" color="white" fontWeight="extrabold">
           CarePal
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/home" className="text-yellow-500 font-bold	">
-              Home
-            </Nav.Link>
-            <Nav.Link href="/caregivers" className="text-yellow-500 font-bold	">
-              Caregivers
-            </Nav.Link>
-            <Nav.Link href="/book" className="text-yellow-500 font-bold	">
-              Book Now!
-            </Nav.Link>
-          </Nav>
-          <Nav className="ms-auto">
-            {isLoggedIn ? (
-              <Nav.Link
-                onClick={handleLogout}
-                className="text-yellow-500 font-bold"
-                href="home"
-              >
-                Logout
-              </Nav.Link>
-            ) : (
-              <Nav.Link href="/login" className="text-yellow-500 font-bold">
-                Login
-              </Nav.Link>
-            )}
-            <Nav.Link
-              href="/user-profile"
-              className="text-yellow-500 font-bold"
-            >
-              <i className="bi bi-person"></i>
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </Link>
+        <Spacer />
+        <Box display={{ base: "none", md: "block" }}>
+          <Link href="/home" color="white" fontWeight="bold" mr="4">
+            Home
+          </Link>
+          <Link href="/caregivers" color="white" fontWeight="bold">
+            Caregivers
+          </Link>
+        </Box>
+        <Spacer />
+        <Box>
+          {isLoggedIn ? (
+            <Menu>
+              <MenuButton as={Button} variant="link" color="white" fontWeight="bold">
+                Menu <HamburgerIcon boxSize="6" />
+              </MenuButton>
+              <MenuList bg="gray.700">
+                <MenuItem as={Link} href="/orders" color="black" fontWeight="bold">
+                  Orders
+                </MenuItem>
+                <MenuItem onClick={handleLogout} color="black" fontWeight="bold">
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Link href="/login" color="white" fontWeight="bold">
+              Login
+            </Link>
+          )}
+        </Box>
+      </Flex>
+    </Box>
   );
 }
 
