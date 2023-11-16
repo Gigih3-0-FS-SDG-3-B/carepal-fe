@@ -1,6 +1,6 @@
 import api from "./api";
 
-export const fetchReviewRating = async (caregiverId) => {
+export const fetchReviews = async (caregiverId) => {
   try {
     const response = await api.get("/review", {
       params: {
