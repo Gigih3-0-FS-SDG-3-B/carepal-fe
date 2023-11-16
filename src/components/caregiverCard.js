@@ -49,7 +49,7 @@ const UserProfileCard = ({
         </div>
       </div>
       <hr className="m-0" />
-      <Card.Body className="pt-2">
+      <Card.Body className="pt-2" style={{ height: "150px", overflow: "hidden" }}>
         <div className="flex h-10">
           <div className="flex-1 w-75">
             <Card.Title className="m-0">{name}</Card.Title>

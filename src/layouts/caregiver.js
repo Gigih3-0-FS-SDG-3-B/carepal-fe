@@ -46,12 +46,23 @@ function CaregiverPage() {
     }
   };
 
+  let today = new Date();
+  let minimumDate = new Date(today);
+  minimumDate.setDate(today.getDate() + 1);
+  let maximumDate = new Date(today);
+  maximumDate.setDate(today.getDate() + 365);
+
   return (
     <div className="mx-4">
+      <div className="mb-2 text-xl font-bold">
+        Find Caregiver Availability Here!
+      </div>
       <DateRangePicker
         startDate={startDate}
         endDate={endDate}
-        handleDateChange={handleDateChange}
+        minDate={minimumDate}
+        maxDate={maximumDate}
+        onChange={handleDateChange}
         onCalendarClose={onCalendarClose}
       />
       <Flex flexWrap="wrap" justifyContent="space-evenly">

@@ -10,7 +10,7 @@ import {
   Button,
   Spinner, Text
 } from "@chakra-ui/react";
-import DatePicker from "react-datepicker";
+import DateRangePicker from "./dateRangePicker";
 import * as caregiverService from "../services/caregiverService";
 
 function BookingModal({caregiverId, caregiverName, isOpen, onClose}) {
@@ -46,8 +46,7 @@ function BookingModal({caregiverId, caregiverName, isOpen, onClose}) {
         <ModalBody>
           <ModalHeader>Choose Date</ModalHeader>
           {isDatePickerReady ? (
-            <DatePicker
-              selectsRange={true}
+            <DateRangePicker
               startDate={startDate}
               endDate={endDate}
               onChange={(update) => {
@@ -58,7 +57,7 @@ function BookingModal({caregiverId, caregiverName, isOpen, onClose}) {
               minDate={minimumDate}
               maxDate={maximumDate}
               excludeDates={excludeDates}
-              inline
+              inline={true}
             />
           ) : (
             <div className="flex flex-col items-center justify-center">
