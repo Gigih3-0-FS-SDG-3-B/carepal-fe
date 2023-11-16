@@ -85,7 +85,9 @@ const CaregiverProfilePage = () => {
         </Heading>
         <hr />
         <Text fontSize="md" className="text-gray-600">
-          {caregiverDetail?.description === null ? "No description" : caregiverDetail?.description}
+          {caregiverDetail?.description === null
+            ? "No description"
+            : caregiverDetail?.description}
         </Text>
         <Text fontSize="md" className="text-gray-500 mb-4">
           {caregiverDetail?.year_experience} years of experience
@@ -143,11 +145,16 @@ const CaregiverProfilePage = () => {
         </Carousel>
         <Flex className="full-w">
           <Button colorScheme="blue" className="ms-auto" onClick={onOpen}>
-            Book Appointment
+            Book
           </Button>
         </Flex>
       </Box>
-      <BookingModal isOpen={isOpen} onClose={onClose} />
+      <BookingModal
+        caregiverId={caregiverId}
+        caregiverName={caregiverDetail?.first_name}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Flex>
   );
 };
