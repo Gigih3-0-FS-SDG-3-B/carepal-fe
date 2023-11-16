@@ -18,4 +18,18 @@
     npm run start
     ```
 
+## Frontend Features
+### User-related features
+#### Customer Related
+- Book caregivers
+- Search Caregiver by Start Date & End Date
+
+#### Caregiver Related
+- Block unavailable dates
+- Prevent multiple orders
+
+### Technical-related features
+- Public & Protected Routes
+- Authentication through JWT
+
 ## References
