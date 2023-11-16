@@ -16,7 +16,7 @@ function NavBar() {
       <Container className="max-w-full">
         <Navbar.Brand href="home" className="text-yellow-500 font-extrabold">
           <img
-            src="logo.png"
+            src="/logo.png"
             alt="CarePal Logo"
             className="logo-image object-contain max-h-10 max-w-full"
           />

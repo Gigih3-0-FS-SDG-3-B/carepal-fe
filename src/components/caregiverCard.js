@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const UserProfileCard = ({
+  caregiverId,
   name,
   subtitle,
   imageUrl,
@@ -15,8 +17,18 @@ const UserProfileCard = ({
   onBookClick,
 }) => {
   const formattedRates = rates.toLocaleString();
+  const navigate = useNavigate();
+  const handleBookClick = (e) => {
+    e.stopPropagation();
+    onBookClick(caregiverId)
+  }
+
+  const handleCardClick = () => {
+    navigate(`/caregivers/${caregiverId}`);
+  };
+
   return (
-    <Card className="shadow">
+    <Card className="shadow" onClick={handleCardClick}>
       <div className="text-center rounded">
         <div
           style={{
@@ -68,7 +80,7 @@ const UserProfileCard = ({
           </div>
         </div>
         <div className="w-25 flex me-auto">
-          <Button onClick={onBookClick} variant="danger" className="ms-auto z-50">
+          <Button onClick={handleBookClick} variant="danger" className="ms-auto z-50">
             Book
           </Button>
         </div>

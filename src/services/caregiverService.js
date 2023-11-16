@@ -11,5 +11,15 @@ export const fetchCaregivers = async (startDate, endDate) => {
       return response.data;
     } catch (error) {
       console.error("Error fetching caregivers:", error);
+      throw Error(error);
     }
   };
+
+export const fetchCaregiverSchedule = async (caregiverId) => {
+  try {
+    const response = await api.get('/caregiver/schedule/' + caregiverId);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching caregiver schedule:", error);
+  }
+}

@@ -3,16 +3,21 @@ import UserProfileCard from "../components/caregiverCard";
 import DateRangePicker from "../components/dateRangePicker";
 import * as caregiverService from "../services/caregiverService";
 import { Flex, Box } from "@chakra-ui/react";
-import { format } from 'date-fns-tz';
-import { Link } from "react-router-dom";
+import { format } from "date-fns-tz";
 import { useDisclosure } from "@chakra-ui/react";
 import BookingModal from "../components/bookingModal";
 
 function CaregiverPage() {
   let [dateRange, setDateRange] = useState([null, null]);
   let [caregivers, setCaregivers] = useState([]);
+  let [selectedCaregiver, setCaregiverToBook] = useState({});
   let [startDate, endDate] = dateRange;
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onBookClick = (caregiverId) => {
+    setCaregiverToBook(caregiverId);
+    onOpen();
+  };
 
   const handleDateChange = (update) => {
     setDateRange(update);
@@ -24,16 +29,19 @@ function CaregiverPage() {
         setCaregivers([]);
         let [newStartDate, newEndDate] = dateRange;
         let availableCaregivers = await caregiverService.fetchCaregivers(
-          format(new Date(newStartDate), 'yyyy-MM-dd', { timeZone: 'Asia/Makassar' }),
-          format(new Date(newEndDate), 'yyyy-MM-dd', { timeZone: 'Asia/Makassar' })
+          format(new Date(newStartDate), "yyyy-MM-dd", {
+            timeZone: "Asia/Makassar",
+          }),
+          format(new Date(newEndDate), "yyyy-MM-dd", {
+            timeZone: "Asia/Makassar",
+          })
         );
         setCaregivers(availableCaregivers);
       } catch (err) {
         console.log(err);
         setCaregivers([]);
       }
-    }
-    else {
+    } else {
       setCaregivers([]);
     }
   };
@@ -50,19 +58,25 @@ function CaregiverPage() {
         {caregivers.map((element, index) => {
           return (
             <Box key={index} width="24%" marginBottom="4">
-              <Link to={`${element.caregiver_id}`}>
               <UserProfileCard
+                caregiverId={element.caregiver_id}
                 name={element.first_name}
                 imageUrl={element.profile_picture_url}
                 description={element.description}
-                onBookClick={onOpen}
+                onBookClick={() => {
+                  onBookClick(element);
+                }}
               />
-            </Link>
             </Box>
           );
         })}
       </Flex>
-      <BookingModal isOpen={isOpen} onClose={onClose} />
+      <BookingModal
+        caregiverId={selectedCaregiver.caregiverId}
+        caregiverName={selectedCaregiver.first_name}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </div>
   );
 }
