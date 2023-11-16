@@ -8,6 +8,7 @@ import {
   useDisclosure,
   Image,
   Heading,
+  Spinner,
 } from "@chakra-ui/react";
 import { Carousel } from "react-bootstrap";
 import BookingModal from "../components/bookingModal";
@@ -21,6 +22,7 @@ const CaregiverProfilePage = () => {
   const [reviewsArray, setReviewsArray] = useState([]);
   const [avgReviewRating, setAvgReviewRating] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,13 +31,13 @@ const CaregiverProfilePage = () => {
           caregiverId
         );
         setCaregiverDetail(caregiverDetail);
-        const reviews = await reviewService.fetchReviews(
-          caregiverId
-        );
+        const reviews = await reviewService.fetchReviews(caregiverId);
         setReviewsArray(reviews?.reviews);
         setAvgReviewRating(reviews?.averageRating);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -82,7 +84,11 @@ const CaregiverProfilePage = () => {
           Reviews
         </Heading>
         <hr />
-        {reviewsArray.length > 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center">
+            <Spinner size="xl" />
+          </div>
+        ) : reviewsArray.length > 0 ? (
           <Carousel
             className="w-full"
             indicators={false}
@@ -108,7 +114,24 @@ const CaregiverProfilePage = () => {
                   alignItems="center"
                   className="text-center"
                 >
-                  {/* ... (previous code) */}
+                  <Image
+                    borderRadius="full"
+                    boxSize="50px"
+                    src={review?.user_profile_picture_url}
+                    alt={review?.user_first_name}
+                    className="mb-2"
+                  />
+                  <StarRatings
+                    rating={review?.review_rating ? review.review_rating : 0}
+                    starRatedColor="gold"
+                    numberOfStars={5}
+                    name="rating"
+                    starDimension="20px"
+                    starSpacing="2px"
+                    className="mb-2"
+                  />
+                  <Text className="text-sm">{review.review}</Text>
+                  <Text className="text-sm font-bold">{review.first_name}</Text>
                 </Flex>
               </Carousel.Item>
             ))}
