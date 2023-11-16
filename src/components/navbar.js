@@ -44,7 +44,7 @@ function NavBar() {
               <MenuButton as={Button} variant="link" color="white" fontWeight="bold">
                 Menu <HamburgerIcon boxSize="6" />
               </MenuButton>
-              <MenuList bg="gray.700">
+              <MenuList bg="gray.700" zIndex="10">
                 <MenuItem as={Link} href="/orders" color="black" fontWeight="bold">
                   Orders
                 </MenuItem>

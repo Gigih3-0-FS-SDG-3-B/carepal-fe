@@ -7,9 +7,6 @@ import {
   Grid,
   Spinner,
   Center,
-  ChakraProvider,
-  extendTheme,
-  theme,
   Card,
   CardBody,
   HStack,
@@ -25,18 +22,6 @@ import {
 import { format } from "date-fns";
 import * as orderEnums from "../enums/orderEnums";
 import * as orderService from "../services/orderService";
-
-const customTheme = extendTheme({
-  ...theme,
-  styles: {
-    global: {
-      body: {
-        bgGradient: "linear(to-r, teal.500, blue.600)",
-        color: "teal.900",
-      },
-    },
-  },
-});
 
 const orderStatusColors = {
   0: "blackAlpha", // Pending
@@ -64,7 +49,6 @@ const OrderListPage = () => {
   }, []);
 
   return (
-    <ChakraProvider theme={customTheme}>
       <Flex
         direction="column"
         align="center"
@@ -135,7 +119,6 @@ const OrderListPage = () => {
           )}
         </Box>
       </Flex>
-    </ChakraProvider>
   );
 };
 
