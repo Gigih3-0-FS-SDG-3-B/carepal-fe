@@ -13,46 +13,47 @@ import { Carousel } from "react-bootstrap";
 import BookingModal from "../components/bookingModal";
 import StarRatings from "react-star-ratings";
 import * as userService from "../services/userService";
+import * as reviewService from "../services/reviewService";
 
 const CaregiverProfilePage = () => {
-  const { userId } = useParams();
-  const [caregiverData, setCaregiverData] = useState(null);
+  const { caregiverId } = useParams();
+  const [caregiverDetail, setCaregiverDetail] = useState({});
+  const [avgReviewRating, setAvgReviewRating] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await userService.fetchCaregiverData(userId);
-        setCaregiverData(data);
+        const caregiverDetail = await userService.fetchCaregiverData(
+          caregiverId
+        );
+        setCaregiverDetail(caregiverDetail);
+
+        const avgReviewRating = await reviewService.fetchReviewRating(
+          caregiverId
+        );
+        setAvgReviewRating(avgReviewRating);
       } catch (error) {
         console.error(error);
       }
     }
     fetchData();
-  }, [userId]);
+  }, [caregiverId]);
 
-  const caregiver = {
-    first_name: "Felix",
-    last_name: "Ivander",
-    description: "I am a very experienced caregiver.",
-    experience: 10,
-    profile_picture_url: "https://via.placeholder.com/250",
-    review_rating: 4.5,
-    reviews: [
-      {
-        first_name: "User 1",
-        review: "Very good caregiver.",
-        review_rating: 4,
-        profile_picture_url: "https://via.placeholder.com/50",
-      },
-      {
-        first_name: "User 2",
-        review: "Very bad caregiver.",
-        review_rating: 1,
-        profile_picture_url: "https://via.placeholder.com/50",
-      },
-    ],
-  };
+  const reviews = [
+    {
+      first_name: "User 1",
+      review: "Very good caregiver.",
+      review_rating: 4,
+      profile_picture_url: "https://via.placeholder.com/50",
+    },
+    {
+      first_name: "User 2",
+      review: "Very bad caregiver.",
+      review_rating: 1,
+      profile_picture_url: "https://via.placeholder.com/50",
+    },
+  ];
 
   return (
     <Flex direction="column" className="space-y-4 mx-auto max-w">
@@ -61,14 +62,16 @@ const CaregiverProfilePage = () => {
           <Image
             borderRadius="full"
             boxSize="250px"
-            src={caregiver.profile_picture_url}
+            src={caregiverDetail?.profile_picture_url}
             alt="Caregiver"
             className="mr-4"
           />
           <Box>
-            <Heading as="h1">{caregiver.first_name} {caregiver.last_name}</Heading>
+            <Heading as="h1">
+              {caregiverDetail?.first_name} {caregiverDetail?.last_name}
+            </Heading>
             <StarRatings
-              rating={caregiver.review_rating}
+              rating={avgReviewRating ? avgReviewRating : 0}
               starRatedColor="gold"
               numberOfStars={5}
               name="rating"
@@ -82,10 +85,10 @@ const CaregiverProfilePage = () => {
         </Heading>
         <hr />
         <Text fontSize="md" className="text-gray-600">
-          {caregiver.description}
+          {caregiverDetail?.description === null ? "No description" : caregiverDetail?.description}
         </Text>
         <Text fontSize="md" className="text-gray-500 mb-4">
-          {caregiver.experience} years of experience
+          {caregiverDetail?.year_experience} years of experience
         </Text>
         <Heading as="h3" className="text-blue-500 font-bold">
           Reviews
@@ -109,7 +112,7 @@ const CaregiverProfilePage = () => {
             />
           }
         >
-          {caregiver.reviews.map((review, index) => (
+          {reviews.map((review, index) => (
             <Carousel.Item key={index}>
               <Flex
                 direction="column"
@@ -124,7 +127,7 @@ const CaregiverProfilePage = () => {
                   className="mb-2"
                 />
                 <StarRatings
-                  rating={review.review_rating}
+                  rating={review.review_rating ? review.review_rating : 0}
                   starRatedColor="gold"
                   numberOfStars={5}
                   name="rating"

@@ -38,7 +38,7 @@ const UserProfileCard = ({
       </div>
       <hr className="m-0" />
       <Card.Body className="pt-2">
-        <div className="flex">
+        <div className="flex h-10">
           <div className="flex-1 w-75">
             <Card.Title className="m-0">{name}</Card.Title>
           </div>
@@ -68,7 +68,7 @@ const UserProfileCard = ({
           </div>
         </div>
         <div className="w-25 flex me-auto">
-          <Button onClick={onBookClick} variant="danger" className="ms-auto">
+          <Button onClick={onBookClick} variant="danger" className="ms-auto z-50">
             Book
           </Button>
         </div>
@@ -80,7 +80,7 @@ const UserProfileCard = ({
 UserProfileCard.defaultProps = {
   name: "Felix",
   subtitle: "Experienced Caregiver",
-  imageUrl: "https://i.imgur.com/R1Ll23s.png",
+  imageUrl: "https://imgur.com/l2Zm7I4.png",
   backgroundImageUrl:
     "https://t4.ftcdn.net/jpg/05/49/86/39/360_F_549863991_6yPKI08MG7JiZX83tMHlhDtd6XLFAMce.jpg",
   description:
@@ -90,8 +90,6 @@ UserProfileCard.defaultProps = {
   city: "Jakarta",
   country: "Indonesia",
   rates: 200000,
-  onBookClick: () =>
-    alert("Default booking functionality will be implemented here."),
 };
 
 export default UserProfileCard;
