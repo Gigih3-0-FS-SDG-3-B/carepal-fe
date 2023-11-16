@@ -18,6 +18,7 @@ import * as reviewService from "../services/reviewService";
 const CaregiverProfilePage = () => {
   const { caregiverId } = useParams();
   const [caregiverDetail, setCaregiverDetail] = useState({});
+  const [reviewsArray, setReviewsArray] = useState([]);
   const [avgReviewRating, setAvgReviewRating] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -28,11 +29,11 @@ const CaregiverProfilePage = () => {
           caregiverId
         );
         setCaregiverDetail(caregiverDetail);
-
-        const avgReviewRating = await reviewService.fetchReviewRating(
+        const reviews = await reviewService.fetchReviews(
           caregiverId
         );
-        setAvgReviewRating(avgReviewRating);
+        setReviewsArray(reviews?.reviews);
+        setAvgReviewRating(reviews?.averageRating);
       } catch (error) {
         console.error(error);
       }
@@ -40,20 +41,20 @@ const CaregiverProfilePage = () => {
     fetchData();
   }, [caregiverId]);
 
-  const reviews = [
-    {
-      first_name: "User 1",
-      review: "Very good caregiver.",
-      review_rating: 4,
-      profile_picture_url: "https://via.placeholder.com/50",
-    },
-    {
-      first_name: "User 2",
-      review: "Very bad caregiver.",
-      review_rating: 1,
-      profile_picture_url: "https://via.placeholder.com/50",
-    },
-  ];
+  // const reviews = [
+  //   {
+  //     first_name: "User 1",
+  //     review: "Very good caregiver.",
+  //     review_rating: 4,
+  //     profile_picture_url: "https://via.placeholder.com/50",
+  //   },
+  //   {
+  //     first_name: "User 2",
+  //     review: "Very bad caregiver.",
+  //     review_rating: 1,
+  //     profile_picture_url: "https://via.placeholder.com/50",
+  //   },
+  // ];
 
   return (
     <Flex direction="column" className="space-y-4 mx-auto max-w">
@@ -114,7 +115,7 @@ const CaregiverProfilePage = () => {
             />
           }
         >
-          {reviews.map((review, index) => (
+          {reviewsArray.map((review, index) => (
             <Carousel.Item key={index}>
               <Flex
                 direction="column"
@@ -124,12 +125,12 @@ const CaregiverProfilePage = () => {
                 <Image
                   borderRadius="full"
                   boxSize="50px"
-                  src={review.profile_picture_url}
-                  alt={review.first_name}
+                  src={review?.user_profile_picture_url}
+                  alt={review?.user_first_name}
                   className="mb-2"
                 />
                 <StarRatings
-                  rating={review.review_rating ? review.review_rating : 0}
+                  rating={review?.review_rating ? review.review_rating : 0}
                   starRatedColor="gold"
                   numberOfStars={5}
                   name="rating"
