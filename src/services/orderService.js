@@ -21,3 +21,16 @@ export async function confirmOrder({
     console.log(error);
   }
 }
+
+export async function getOrder({ userId }) {
+  try {
+    const response = await api.get("order", {
+      params: {
+        user_id: userId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
