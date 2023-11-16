@@ -26,7 +26,7 @@ function LoginCard() {
       const { userId, token } = await loginService.getToken(formData);
       if (token !== null) {
         login({ userId, token });
-        navigate("/");
+        navigate("/home");
       } else {
         setError("Invalid email or password. Please try again.");
       }

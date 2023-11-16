@@ -41,21 +41,6 @@ const CaregiverProfilePage = () => {
     fetchData();
   }, [caregiverId]);
 
-  // const reviews = [
-  //   {
-  //     first_name: "User 1",
-  //     review: "Very good caregiver.",
-  //     review_rating: 4,
-  //     profile_picture_url: "https://via.placeholder.com/50",
-  //   },
-  //   {
-  //     first_name: "User 2",
-  //     review: "Very bad caregiver.",
-  //     review_rating: 1,
-  //     profile_picture_url: "https://via.placeholder.com/50",
-  //   },
-  // ];
-
   return (
     <Flex direction="column" className="space-y-4 mx-auto max-w">
       <Box className="shadow-lg rounded-lg p-4 bg-white">
@@ -97,53 +82,40 @@ const CaregiverProfilePage = () => {
           Reviews
         </Heading>
         <hr />
-        <Carousel
-          className="w-full"
-          indicators={false}
-          prevIcon={
-            <span
-              aria-hidden="true"
-              className="carousel-control-prev-icon"
-              style={{ filter: "invert(100%)" }}
-            />
-          }
-          nextIcon={
-            <span
-              aria-hidden="true"
-              className="carousel-control-next-icon"
-              style={{ filter: "invert(100%)" }}
-            />
-          }
-        >
-          {reviewsArray.map((review, index) => (
-            <Carousel.Item key={index}>
-              <Flex
-                direction="column"
-                alignItems="center"
-                className="text-center"
-              >
-                <Image
-                  borderRadius="full"
-                  boxSize="50px"
-                  src={review?.user_profile_picture_url}
-                  alt={review?.user_first_name}
-                  className="mb-2"
-                />
-                <StarRatings
-                  rating={review?.review_rating ? review.review_rating : 0}
-                  starRatedColor="gold"
-                  numberOfStars={5}
-                  name="rating"
-                  starDimension="20px"
-                  starSpacing="2px"
-                  className="mb-2"
-                />
-                <Text className="text-sm">{review.review}</Text>
-                <Text className="text-sm font-bold">{review.first_name}</Text>
-              </Flex>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+        {reviewsArray.length > 0 ? (
+          <Carousel
+            className="w-full"
+            indicators={false}
+            prevIcon={
+              <span
+                aria-hidden="true"
+                className="carousel-control-prev-icon"
+                style={{ filter: "invert(100%)" }}
+              />
+            }
+            nextIcon={
+              <span
+                aria-hidden="true"
+                className="carousel-control-next-icon"
+                style={{ filter: "invert(100%)" }}
+              />
+            }
+          >
+            {reviewsArray.map((review, index) => (
+              <Carousel.Item key={index}>
+                <Flex
+                  direction="column"
+                  alignItems="center"
+                  className="text-center"
+                >
+                  {/* ... (previous code) */}
+                </Flex>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        ) : (
+          <Text>No reviews available</Text>
+        )}
         <Flex className="full-w">
           <Button colorScheme="blue" className="ms-auto" onClick={onOpen}>
             Book
